@@ -13,7 +13,7 @@ const About = () => {
       <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
         <div className="sm:text-center lg:text-left">
         <h2 className="my-6 text-2xl tracking-tight font-extrabold text-sec sm:text-3xl md:text-4xl">
-  We Provide Complete Furniture Products
+  We Provide Complete Furniture Product
 </h2>
 <p>
   Welcome to RJ.Decorator, your one-stop destination for exquisite furniture pieces that elevate your living spaces. Whether you're furnishing your home, office, or any other space, we have the perfect selection to meet your needs.
