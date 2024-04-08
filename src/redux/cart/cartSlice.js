@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 const fetchFromLocalStorage = () => {
   let cart = localStorage.getItem("cartItems");
   if (cart) {
-    return JSON.parse(cart); // Change this line
+    return JSON.parse(cart); 
   } else {
     return [];
   }
@@ -14,42 +14,10 @@ const storeInLocalStorage = (data) => {
   localStorage.setItem("cartItems", JSON.stringify(data));
 };
 
-// export const createUserCart = createAsyncThunk(
-//   "cart/createUserCart",
-//   async (cartData, { rejectWithValue }) => {
-//     try {
-//       const response = await service.createCart(cartData);
-//       toast.success("Item added to cart");
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
 
-// export const userCartList = createAsyncThunk(
-//   "cart/userCartList",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const response = await service.getUserCart();
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
 
-// export const deleteCartItem = createAsyncThunk(
-//   "cart/deleteCartItem",
-//   async ({ id, pid }, { rejectWithValue }) => {
-//     try {
-//       const response = await service.deleteUserCart(id, pid);
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+
+
 
 const cartSlice = createSlice({
   name: "cart",
@@ -113,51 +81,9 @@ const cartSlice = createSlice({
       localStorage.setItem("shippingInfo", JSON.stringify(action.payload));
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(createUserCart.pending, (state) => {
-  //       state.loading = true;
-  //     })
-  //     .addCase(createUserCart.fulfilled, (state, action) => {
-  //       state.loading = false;
-  //       state.cartProducts = action.payload;
-  //     })
-  //     .addCase(createUserCart.rejected, (state, action) => {
-  //       state.loading = false;
-  //       state.cartError = action.payload.message;
-  //     })
+  
 
-  //     // userCartList
-  //     .addCase(userCartList.pending, (state) => {
-  //       state.loading = true;
-  //     })
-  //     .addCase(userCartList.fulfilled, (state, action) => {
-  //       state.loading = false;
-  //       state.cartProducts = action.payload;
-  //     })
-  //     .addCase(userCartList.rejected, (state, action) => {
-  //       state.loading = false;
-  //       state.cartError = action.payload.message;
-  //     })
 
-  //     // deleteCartItem
-  //     .addCase(deleteCartItem.pending, (state) => {
-  //       state.loading = true;
-  //     })
-  //     .addCase(deleteCartItem.fulfilled, (state, action) => {
-  //       state.loading = false;
-  //       const {
-  //         arg: { id },
-  //       } = action.meta;
-  //       state.cartProducts = state.cartProducts.filter(
-  //         (item) => item._id !== id
-  //       );
-  //     })
-  //     .addCase(deleteCartItem.rejected, (state, action) => {
-  //       state.loading = false;
-  //       state.cartError = action.payload.message;
-  //     });
-  // },
 });
 
 export const {

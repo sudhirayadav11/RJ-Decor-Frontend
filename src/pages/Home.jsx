@@ -1,15 +1,16 @@
 import React from "react";
 import Feature from "../components/Feature";
 import Ads from "../components/Ads";
-import Products from "./Products";
 import BannerCarosel from "../components/BannerCarosel";
+import ProductHome from "./ProductHome";
 
 const Home = () => {
   return (
     <>
       <BannerCarosel />
       <Feature />
-      <Products />
+      <ProductHome/>
+    
 
       <Ads />
     </>

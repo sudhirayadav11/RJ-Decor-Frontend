@@ -87,22 +87,6 @@ export default function Products() {
     }
   };
 
-  // Function to filter products by color
-  const filterColor = (color) => {
-    setSelectedColor(color);
-
-    // Filter products based on selected color
-    if (color) {
-      const filteredProducts = products.filter(
-        (product) => product.color.toLowerCase() === color.toLowerCase()
-      );
-      setList(filteredProducts);
-    } else {
-      // If no color selected, show all products
-      setList(products);
-    }
-  };
-
   useEffect(() => {
     const applIFilters = () => {
       let productLists = products;
@@ -142,14 +126,14 @@ export default function Products() {
             <form
               onSubmit={handleSearch}
               method="GET"
-              className="flex max-w-xl"
+              className="flex max-w-3xl"
             >
               <input
                 type="text"
                 name="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full border border-primary border-r-0 pl-12 py-2 pr-3 rounded-l-md focus:outline-none"
+                className="w-[600px]  border-primary  "
                 placeholder="Search products"
               />
               <button
@@ -165,18 +149,25 @@ export default function Products() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-cols-4">
               {/*  Filters by Category and Price*/}
               <div className="flex flex-col w-1/3">
+              
                 {/* Category Filter */}
                 <div className="w-full ">
                   <div className="category_box">
-                    <h3 className="text-xl border-b-2 border-red-800 font-mono     font-bold   ">
+                    <h3 className="text-xl border-b-2 border-red-800 font-mono  mb-3    font-bold   ">
                       Category{" "}
                     </h3>
-                    <div className=" py-2  ">
-                      <span onClick={() => filterCategory()}> All </span>
+                    <div className=" py-2  text-sm ">
+                      <span
+                        onClick={() => filterCategory()}
+                        className=" border pt-1 border-blue-900 px-1 pe-[72px] "
+                      >
+                        {" "}
+                        All{" "}
+                      </span>
                       {categories &&
                         categories.map((cat) => (
                           <span
-                            className="flex flex-col "
+                            className="flex flex-col border my-2 py-2 border-blue-900 px-1 hover:bg-blue-900 hover:text-white cursor-pointer"
                             key={cat._id}
                             onClick={() => filterCategory(cat.name)}
                           >
@@ -205,38 +196,6 @@ export default function Products() {
                     <h2> Rs.{price} </h2>
                   </div>
                 </div>
-
-               
-                {/* Color Filter */}
-                <div className="w-full py-2 pb-4">
-                  <div className="color_box">
-                    <h3 className="text-xl border-b-2 border-red-800 font-mono     font-bold my-2">
-                      Color
-                    </h3>
-                    <div className="flex">
-                      <div
-                        className={`w-6 h-6 rounded-full bg-red-500 cursor-pointer mr-2 ${
-                          selectedColor === "red" && "border-2 border-red-800"
-                        }`}
-                        onClick={() => filterColor("red")}
-                      ></div>
-                      <div
-                        className={`w-6 h-6 rounded-full bg-blue-500 cursor-pointer mr-2 ${
-                          selectedColor === "blue" && "border-2 border-red-800"
-                        }`}
-                        onClick={() => filterColor("blue")}
-                      ></div>
-                      <div
-                        className={`w-6 h-6 rounded-full bg-green-500 cursor-pointer mr-2 ${
-                          selectedColor === "green" && "border-2 border-red-800"
-                        }`}
-                        onClick={() => filterColor("green")}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-
-               
               </div>
 
               {/* products grid page */}

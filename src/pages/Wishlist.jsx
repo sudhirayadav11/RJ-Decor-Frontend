@@ -33,7 +33,7 @@ const Wishlist = () => {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {wishitems?.length === 0 ? (
               <div className="alert_box">
                 <h2 className="empty">Wishlist is Empty</h2>
@@ -43,12 +43,12 @@ const Wishlist = () => {
                 {wishitems.map((item) => (
                   <div
                     key={item._id}
-                    className="bg-white rounded-lg p-6 shadow-md"
+                    className="bg-white rounded-lg p-2 shadow-md"
                   >
                     <img
                       src={item.product_image}
-                      alt="Product Image"
-                      className="mx-auto mb-4"
+                      alt="Product Image "
+                      className="mx-auto mb-4 prodimg"
                     />
                     <h2 className="text-xl font-semibold mb-2">
                       {item.product_name}
