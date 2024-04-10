@@ -38,10 +38,7 @@ const Header = () => {
   }, []);
 
 
-  // Scroll to the top when the location changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  
 
   return (
     <>
@@ -54,13 +51,13 @@ const Header = () => {
               to="/"
             >
               <img
-                src="https://img.freepik.com/free-vector/furniture-logo-concept_23-2148634718.jpg?t=st=1710307787~exp=1710311387~hmac=5c38784ddf6bc10ffcc92246c0a6d713c9effed89237a8db50707c8245630e8e&w=740"
+                src="https://img.freepik.com/free-vector/logo-furniture-minimalist_23-2148464346.jpg?w=740"
                 className="w-14 h-14 mr-2  ml-2 text-primary  rounded-full"
                 viewbox="0 0 24 24"
                 alt="Logo"
               />
               <span className="text-white text-2xl font-semibold">
-                RJ-Decor
+                RJ Decor
               </span>
             </Link>
           </div>

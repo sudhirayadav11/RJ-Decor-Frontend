@@ -18,7 +18,20 @@ const About = () => {
 <p>
   Welcome to RJ.Decorator, your one-stop destination for exquisite furniture pieces that elevate your living spaces. Whether you're furnishing your home, office, or any other space, we have the perfect selection to meet your needs.
   From timeless classics to modern marvels, our collection boasts a wide range of designs crafted with precision and passion. Our commitment to quality ensures that each piece not only enhances the aesthetics of your space but also offers unparalleled comfort and functionality.
-  Explore our curated catalog and discover furniture that reflects your style and personality. With RJ.Decorator, turning your vision into reality has never been easier.
+  Explore our curated catalog and discover furniture that reflects your style and personality. With RJ.Decorator, turning your vision into reality has never been easier. 
+  Lochan Yadav, a successful businessman who runs a furniture empire, 
+  is widely regarded as an innovator in the industry. His journey began
+  in a little carpenter shop. Instead of using traditional procedures, 
+   
+   Lochan infused a modern and creative touch into the company. 
+   Under his leadership, the small workshop blossomed into a 
+   thriving enterprise known for its exquisite and contemporary designs.
+   Lochan's dedication to quality and workmanship became a trademark of his 
+   company. One of Lochan's notable achievements was introducing sustainable 
+   practices into the furniture manufacturing process. Concerned about environmental
+   impact, he implemented eco-friendly materials and production methods, setting a 
+   trend in the industry.  This not only gained him corporate responsibility admiration,
+   but it also attracted an increasing number of environmentally concerned customers.
 </p>
 
         </div>

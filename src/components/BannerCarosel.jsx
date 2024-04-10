@@ -18,7 +18,7 @@ const BannerCarosel = () => {
         </p>
 
         <div className="mt-6 md:mt-12">
-          <a href="#" className="bg-primary border border-primary text-white px-6 md:px-8 py-3 md:py-4 font-medium rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
+          <a href="/products" className="bg-primary border border-primary text-white px-6 md:px-8 py-3 md:py-4 font-medium rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
         </div>
       </div>
     </div>,
@@ -28,12 +28,12 @@ const BannerCarosel = () => {
         <h1 className="text-4xl md:text-6xl text-gray-900 font-medium mb-4 capitalize">
         Elevate Your Home Decor with <br /> Our Exquisite Collection
         </h1>
-        <p className="text-sm md:text-md lg:text-lg text-gray-300 mb-6 md:mb-12 w-1/2">
+        <p className="text-sm md:text-md lg:text-lg text-gray-900 mb-6 md:mb-12 w-1/2">
           Discover the latest trends and essentials for your everyday life. Explore our wide range of products carefully curated to meet your needs and preferences. From fashion to home decor, we have everything you need to elevate your daily routines.
         </p>
 
         <div className="mt-6 md:mt-12">
-          <a href="#" className="bg-primary border border-primary text-white px-6 md:px-8 py-3 md:py-4 font-medium rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
+          <a href="/products" className="bg-primary border border-primary text-white px-6 md:px-8 py-3 md:py-4 font-medium rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
         </div>
       </div>
     </div>,
@@ -48,7 +48,7 @@ const BannerCarosel = () => {
         </p>
 
         <div className="mt-6 md:mt-12">
-          <a href="#" className="bg-primary border border-primary text-white px-6 md:px-8 py-3 md:py-4 font-medium rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
+          <a href="/products" className="bg-primary border border-primary text-white px-6 md:px-8 py-3 md:py-4 font-medium rounded-md hover:bg-transparent hover:text-primary">Shop Now</a>
         </div>
       </div>
     </div>

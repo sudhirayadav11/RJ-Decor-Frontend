@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import ScrollToTop from "react-scroll-to-top";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -37,13 +36,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
-      <ScrollToTop
-        smooth
-        color="white"
-        width="40px"
-        border-radius="50%"
-        style={{ background: "blue" }}
-      />
+     
     </>
   );
 }
