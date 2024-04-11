@@ -18,6 +18,7 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState();
   const [priceRange, setPriceRange] = useState();
   const [price, setPrice] = useState();
+  const [keywords, setKeywords] = useState("");
   const [selectedColor, setSelectedColor] = useState();
 
   const navigate = useNavigate();
@@ -40,23 +41,21 @@ export default function Products() {
   }, [products]);
   useEffect(() => {}, [selectedCategory, priceRange, list]);
 
-  //  search for products functions
-  const handleSearch = async (e) => {
-    e.preventDefault();
-
-    if (search.trim() !== "") {
-      const response = await dispatch(searchProduct(search));
-      if (response.meta.requestStatus === "fulfilled") {
-        setList(response.payload); // Update list state with search results
-        navigate(`/products/search?searchQuery=${search}`);
+  //  search products  function by query string
+  useEffect(() => {
+    if (products) {
+      const filteredProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(keywords.toLowerCase())
+      );
+      if (selectedCategory) {
+        setList(
+          filteredProducts.filter((item) => item.category === selectedCategory)
+        );
       } else {
-        // Handle if search request failed
-        console.error("Search request failed");
+        setList(filteredProducts);
       }
-    } else {
-      navigate("/productDetails");
     }
-  };
+  }, [keywords, selectedCategory, products]);
 
   // get categorys
   useEffect(() => {
@@ -123,16 +122,12 @@ export default function Products() {
               Hot Sales Products
             </h1>
 
-            <form
-              onSubmit={handleSearch}
-              method="GET"
-              className="flex max-w-3xl"
-            >
+            <form method="GET" className="flex max-w-3xl">
               <input
                 type="text"
                 name="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
                 className="w-[600px]  border-primary  "
                 placeholder="Search products"
               />
@@ -149,7 +144,6 @@ export default function Products() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-cols-4">
               {/*  Filters by Category and Price*/}
               <div className="flex flex-col w-1/3">
-              
                 {/* Category Filter */}
                 <div className="w-full ">
                   <div className="category_box">

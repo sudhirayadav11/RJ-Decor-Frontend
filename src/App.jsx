@@ -14,6 +14,9 @@ import Wishlist from "./pages/Wishlist";
 import Products from "./pages/Products";
 import Success from './components/Success';
 import Cancel from './components/Cancel';
+import Shipping from './pages/Shipping';
+import ConfirmOrder from './pages/ConfirmOrder';
+
 
 
 function App() {
@@ -29,6 +32,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/shipping" element={<Shipping/>} />
+        <Route path="/order/confirm" element={<ConfirmOrder/>} />
         <Route path="/success" element={<Success/>} />
         <Route path="/cancel" element={<Cancel/>} />
         <Route path="/login" element={<Login/>} />

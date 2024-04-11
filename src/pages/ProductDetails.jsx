@@ -21,15 +21,12 @@ const ProductDetails = () => {
     }
   }, [id, getProductById]);
 
-
-
   // Check if the product is already in the wishlist
   const isProductInWishlist = (productName) => {
     return wishitems.some((item) => item.product_name === productName);
   };
 
-
-  // add to wishlist  
+  // add to wishlist
   const addWishlist = (e) => {
     e.preventDefault();
 
@@ -59,6 +56,7 @@ const ProductDetails = () => {
     if (product.colors && product.colors.length > 0) {
       setSelectedColor(product.colors[0]);
     }
+    console.log("product selected color: " + product.colors);
   }, [product.colors]);
 
   const handleColorSelect = (color) => {
@@ -69,7 +67,6 @@ const ProductDetails = () => {
 
   // show sizes when product Bedroom  category is selected
   const isBedroom = product && product.category === "Bedroom";
-  console.log("isBedroom", isBedroom);
 
   return (
     <>
@@ -91,7 +88,7 @@ const ProductDetails = () => {
                   alt="product image"
                   className="w-full"
                 />
-                 <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-gray-600">
                   <strong> Products Description: </strong>
                   {product.desc}
                 </p>
@@ -129,7 +126,6 @@ const ProductDetails = () => {
                   <strong>Fabric: </strong>
                   {product.fabric}
                 </p>
-               
 
                 {/* sizes displaying start */}
                 <div className="">

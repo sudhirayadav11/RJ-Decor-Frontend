@@ -34,6 +34,7 @@ const About = () => {
         <p className="text-justify">
             Lochan Yadav, a successful businessman who runs a furniture
             empire, is widely regarded as an innovator in the industry.
+            
             His journey began in a little carpenter shop. Instead of using
             traditional procedures, Lochan infused a modern and creative
             touch into the company. Under his leadership, the small
@@ -52,7 +53,7 @@ const About = () => {
     <div className="w-1/2 pl-4">
         <img
             className="w-full"
-            src="../../public/FB_IMG_1712640101191.jpg"
+            src="../../FB_IMG_1712640101191.jpg"
             alt="Image of Lochan Yadav"
         />
     </div>

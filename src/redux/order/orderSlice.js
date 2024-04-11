@@ -3,7 +3,7 @@ import * as service from "./orderService";
 
 // create new order code
 export const createNewOrder = createAsyncThunk(
-  "orders/new_order",
+  "orders/neworder",
   async (orderData, { rejectWithValue }) => {
     try {
       const response = await service.createOrder(orderData);
@@ -14,9 +14,10 @@ export const createNewOrder = createAsyncThunk(
   }
 );
 
+
 // get user orders
 export const getUserOrders = createAsyncThunk(
-  "orders/my_orders",
+  "orders/myorders",
   async (_, { rejectWithValue }) => {
     try {
       const response = await service.userOrders();
@@ -42,7 +43,6 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    // create order
       .addCase(createNewOrder.pending, (state) => {
         state.loading = true;
       })
@@ -55,10 +55,6 @@ const orderSlice = createSlice({
         state.error = action.payload.message;
       })
 
-
-
-
-      // get uer order
       .addCase(getUserOrders.pending, (state) => {
         state.loading = true;
       })

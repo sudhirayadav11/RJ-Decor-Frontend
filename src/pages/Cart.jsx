@@ -8,8 +8,6 @@ import {
 } from "../redux/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { loadStripe } from "@stripe/stripe-js";
-import  axios  from 'axios';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -51,41 +49,13 @@ const Cart = () => {
     dispatch(removeCartItem(id));
   };
 
-
-
-  // payment  integration
-  const handlePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51P0M0uA9t10f3qsTEvhqQ0MbCZIAz9RoRgNWaIsOQeTSLiDrkwmtIFbIb347TrmRhAc4100aYdhDCdAIURCCKZLi00cxIciGJl"
-    );
-    try {
-      const body = { productsdata: cartItems };
-      console.log(body.productsdata);
-      const headers = {
-        "content-type": "application/json",
-      };
-      // Make POST request to your backend API
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/checkout",
-        {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(body.productsdata),
-        }
-      );
-      const session = await response.data;
-      console.log('Session created', session)
-
-      const result =await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      console.log("results", result);
-
-      if (result.error) {
-        console.log(result.error);
-      }
-    } catch (error) {
-      console.error("Error:", error);
+  // creatting order
+  const createOrder = () => {
+    if (cartItems.length === 0) {
+     
+      toast.error("Please add items to your cart before proceeding to checkout");
+    } else {
+      navigate("/shipping");
     }
   };
 
@@ -135,6 +105,7 @@ const Cart = () => {
                                 <p className="text-md font-bold text-[#333]">
                                   {item.name}
                                 </p>
+                                
                                 <button
                                   type="button"
                                   className="mt-4 font-semibold text-red-400 text-sm"
@@ -219,11 +190,11 @@ const Cart = () => {
             <li className="flex flex-wrap gap-4 text-md py-4">
               Subtotal{" "}
               <span className="ml-auto font-bold">
-                ${totalPrice().toLocaleString()}.00
+                Rs. {totalPrice().toLocaleString()}.00
               </span>
             </li>
             <li className="flex flex-wrap gap-4 text-md py-4">
-              Shipping <span className="ml-auto font-bold">Free</span>
+              Shipping <span className="ml-auto font-bold">Rs. 200</span>
             </li>
             <li className="flex flex-wrap gap-4 text-md py-4">
               Tax <span className="ml-auto font-bold">Rs. 100</span>
@@ -231,19 +202,19 @@ const Cart = () => {
             <li className="flex flex-wrap gap-4 text-md py-4 font-bold">
               Total{" "}
               <span className="ml-auto">
-              ${(totalPrice() + 100).toLocaleString()}.00
+                Rs. {(totalPrice() + 100 + 200).toLocaleString()}.00
               </span>
             </li>
           </ul>
-         
-            <button
-              type="button"  onClick={handlePayment}
-              className="mt-6 text-md px-6 py-2.5 w-full bg-primary hover:bg-sec text-white rounded"
-              target="_blank"
-            >
-              Check out
-            </button>
-         
+
+          <button
+            type="button"
+            onClick={createOrder}
+            className="mt-6 text-md px-6 py-2.5 w-full bg-primary hover:bg-sec text-white rounded"
+            target="_blank"
+          >
+            Check out
+          </button>
         </div>
       </div>
     </>

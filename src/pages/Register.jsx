@@ -52,10 +52,7 @@ const Register = () => {
 
   const location = useLocation();
 
-  // Scroll to the top when the location changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+
 
   return (
     <>
