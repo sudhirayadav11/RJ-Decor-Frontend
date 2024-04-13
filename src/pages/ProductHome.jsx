@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate, useLocation} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCartArrowDown, FaHeart } from "react-icons/fa";
 import { getProducts } from "../redux/product/productSlice";
@@ -7,12 +7,16 @@ import { toast } from "react-toastify";
 import { addToCart } from "../redux/cart/cartSlice";
 
 export default function ProductHome() {
-  const { products, error } = useSelector((state) => state.products);
+  const navigate=useNavigate()
+  const location = useLocation();
+  const { products, error } = useSelector((state) => state.products); // Only select the first 8 products
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+    window.scrollTo(0, 0);
+  }, [dispatch,location.pathname]);
 
   useEffect(() => {
     if (error) {
@@ -22,8 +26,19 @@ export default function ProductHome() {
 
   // add to cart handler
   const addToCartHandler = (product) => {
-    dispatch(addToCart({ ...product, product_id: product._id, qty: 1 }));
+    if(isLoggedIn){
+      dispatch(addToCart({ ...product, product_id: product._id, qty: 1 }));
+
+    }else{
+      toast.error("Please log to add cart");
+      navigate('/login')
+
+    }
   };
+
+
+  const displayedProducts = products && products.slice(0, 8);
+
 
   return (
     <div className="bg-gray-100 overflow-x-hidden overflow-hidden">
@@ -36,8 +51,12 @@ export default function ProductHome() {
 
         <section aria-labelledby="products-heading" className="pb-24 pt-2">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-            {products.map((product) => (
-              <div key={product._id} className="bg-white shadow rounded overflow-hidden group">
+            
+            {displayedProducts.map((product) => (
+              <div
+                key={product._id}
+                className="bg-white shadow rounded overflow-hidden group"
+              >
                 <Link to={`/products/${product._id}`} className="block">
                   <img
                     src={product.image}

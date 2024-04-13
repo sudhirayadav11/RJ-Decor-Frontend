@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
@@ -60,6 +62,35 @@ const ConfirmOrder = () => {
       console.error("Error:", error);
     }
   };
+
+  // cash on delivery 
+    const CashOnDeliver = async () => {
+      try {
+        const orderData = {
+          user: user._id,
+          cartItems: cartItems.map(item => ({
+            product: item._id,
+            quantity: item.qty,
+          })),
+          shippingInfo,
+          sub_total,
+          shipping_charge,
+          tax,
+          grand_total,
+        };
+        console.log("Order data:", orderData);
+
+        const response = await axios.post("http://localhost:5000/api/v1/checkout", orderData);
+        console.log("Order placed successfully:", response.data);
+        toast.success("Order placed successfully!");
+       
+        navigate("/");
+      } catch (error) {
+        console.error("Error placing order:", error);
+        toast.error("Error placing order. Please try again.");
+      }
+    };
+ 
 
   return (
     <>
@@ -164,7 +195,7 @@ const ConfirmOrder = () => {
               </div>
             </div>
 
-            <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex justify-center flex-col items-center gap-4">
               <button
                 className="w-[400px] py-3 px-4 bg-blue-900 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 onClick={handlePayment}
@@ -172,6 +203,12 @@ const ConfirmOrder = () => {
                 Payment with card
               </button>
             </div>
+            <div className="py-4 flex items-center justify-center ">
+            <button className="w-[400px] text-center py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={CashOnDeliver}>
+              Cash on delivery
+            </button>
+            </div>
+          
           </div>
         </div>
       </div>

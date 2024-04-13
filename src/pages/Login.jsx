@@ -9,6 +9,7 @@ import { RESET_AUTH, login } from "../redux/user/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const { isLoggedIn, isLoading, isSuccess } = useSelector(
     (state) => state.user
@@ -40,10 +41,11 @@ const Login = () => {
     if (isSuccess && isLoggedIn) {
       navigate("/");
     }
+   
     dispatch(RESET_AUTH());
+    window.scrollTo(0, 0);
   }, [isSuccess, isLoggedIn, dispatch, navigate]);
 
-  const location = useLocation();
 
   
 

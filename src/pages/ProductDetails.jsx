@@ -12,8 +12,12 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState(""); // Add selectedSize state
+
   const { product, loading } = useSelector((state) => ({ ...state.products }));
   const { wishitems, error } = useSelector((state) => ({ ...state.wishlist }));
+  const { isLoggedIn } = useSelector((state) => state.user);
+
 
   useEffect(() => {
     if (id) {
@@ -47,11 +51,17 @@ const ProductDetails = () => {
   // addd to cart
   const handleCart = (e) => {
     e.preventDefault();
-    dispatch(addToCart({ ...product, qty: quantity }));
+    if(isLoggedIn){
+      dispatch(addToCart({ ...product, qty: quantity }));
+
+    }else{
+      toast.error("Please log to add cart");
+      navigate('/login')
+    }
   };
 
   // color logic here start
-  const staticColors = ["red", "blue", "green"];
+  const staticColors = ["brown", "black", "gray"];
   useEffect(() => {
     if (product.colors && product.colors.length > 0) {
       setSelectedColor(product.colors[0]);
@@ -66,7 +76,15 @@ const ProductDetails = () => {
   // color logic  end
 
   // show sizes when product Bedroom  category is selected
-  const isBedroom = product && product.category === "Bedroom";
+  // const isBedroom = product && product.category === "Bedroom";
+  useEffect(() => {
+    if (product.colors && product.colors.length > 0) {
+      setSelectedColor(product.colors[0]);
+    }
+    if (product.sizes && product.sizes.length > 0) {
+      setSelectedSize(product.sizes[0]); // Initialize selectedSize
+    }
+  }, [product.colors, product.sizes]);
 
   return (
     <>
@@ -123,13 +141,13 @@ const ProductDetails = () => {
                   {product.brand}
                 </p>
                 <p className="my-1 text-gray-700">
-                  <strong>Fabric: </strong>
+                  <strong>Material : </strong>
                   {product.fabric}
                 </p>
 
                 {/* sizes displaying start */}
-                <div className="">
-                  {isBedroom && product.sizes && product.sizes.length > 0 && (
+                {/* <div className="">
+                  {product.sizes && product.sizes.length > 0 && (
                     <div className="flex justify-start items-center">
                       <strong>Sizes: </strong>
                       <select
@@ -148,7 +166,31 @@ const ProductDetails = () => {
                       </select>
                     </div>
                   )}
+                </div> */}
+                <div className="">
+                  {product.sizes && product.sizes.length > 0 && (
+                    <div className="flex justify-start items-center">
+                      <strong>Sizes: </strong>
+                      <select
+                        className="mx-2 px-4 py-1 border border-gray-300 rounded-md"
+                        style={{
+                          appearance: "none",
+                          background: "none",
+                          backgroundImage: "none",
+                        }}
+                        value={selectedSize} // Set the selected value
+                        onChange={(e) => setSelectedSize(e.target.value)} // Update selected size
+                      >
+                        {product.sizes.map((size) => (
+                          <option key={size} value={size}>
+                            {size}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
+
                 {/* sizes displaying end */}
 
                 <div className="space-y-2">

@@ -13,6 +13,8 @@ export default function Products() {
   const { error } = useSelector((state) => ({ ...state.wishlist }));
   const [quantity, setQuantity] = useState(1);
   const [list, setList] = useState(products);
+  const { isLoggedIn } = useSelector((state) => state.user);
+
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
@@ -110,7 +112,13 @@ export default function Products() {
 
   // add to cart handler
   const addToCartHandler = (product) => {
-    dispatch(addToCart({ ...product, product_id: product._id, qty: quantity }));
+    if(isLoggedIn){
+      dispatch(addToCart({ ...product, product_id: product._id, qty: quantity }));
+
+    }else{
+      toast.error("Please log to add cart");
+      navigate('/login')
+    }
   };
 
   return (
