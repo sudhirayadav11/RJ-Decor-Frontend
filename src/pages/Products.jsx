@@ -127,7 +127,7 @@ export default function Products() {
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-red-500 pb-6 pt-10">
             <h1 className="text-3xl font-bold tracking-tight text-sec ">
-              Hot Sales Products
+              Our Products
             </h1>
 
             <form method="GET" className="flex max-w-3xl">

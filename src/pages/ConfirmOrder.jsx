@@ -1,13 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { createNewOrder } from "../redux/order/orderSlice";
 
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : [];
@@ -63,34 +65,37 @@ const ConfirmOrder = () => {
     }
   };
 
-  // cash on delivery 
-    const CashOnDeliver = async () => {
-      try {
-        const orderData = {
-          user: user._id,
-          cartItems: cartItems.map(item => ({
-            product: item._id,
-            quantity: item.qty,
-          })),
-          shippingInfo,
-          sub_total,
-          shipping_charge,
-          tax,
-          grand_total,
-        };
-        console.log("Order data:", orderData);
+  // cash on delivery payment method
+  const cashonPayment = async () => {
+    try {
+      const orderData = {
+        orderItems: cartItems.map((item) => ({
+          name: item.name,
+          price: item.price,
+          quantity: item.qty,
+          image: item.image,
+          product: item._id,
+        })),
+        shippingInfo: shippingInfo,
+        itemsPrice: sub_total,
+        taxPrice: 0,
+        shippingPrice: shipping_charge,
+        totalPrice: grand_total,
+        paymentInfo: {
+          id: "COD",
+          status: "pending",
+        },
+      };
 
-        const response = await axios.post("http://localhost:5000/api/v1/checkout", orderData);
-        console.log("Order placed successfully:", response.data);
-        toast.success("Order placed successfully!");
-       
-        navigate("/");
-      } catch (error) {
-        console.error("Error placing order:", error);
-        toast.error("Error placing order. Please try again.");
-      }
-    };
- 
+      dispatch(createNewOrder(orderData));
+      toast.success("Order placed successfully");
+      // Redirect user to a thank you page or some other appropriate page
+      navigate("/thanks");
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Error placing order");
+    }
+  };
 
   return (
     <>
@@ -195,7 +200,7 @@ const ConfirmOrder = () => {
               </div>
             </div>
 
-            <div className="mt-8 flex justify-center flex-col items-center gap-4">
+            <div className="mt-8 flex justify-center">
               <button
                 className="w-[400px] py-3 px-4 bg-blue-900 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 onClick={handlePayment}
@@ -203,12 +208,15 @@ const ConfirmOrder = () => {
                 Payment with card
               </button>
             </div>
-            <div className="py-4 flex items-center justify-center ">
-            <button className="w-[400px] text-center py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={CashOnDeliver}>
-              Cash on delivery
-            </button>
+
+            <div className=" flex justify-center ">
+              <button
+                className="py-2 px-32 rounded-sm bg-red-600 my-4 text-center  text-white w-auto"
+                onClick={cashonPayment}
+              >
+                cash on delivery
+              </button>
             </div>
-          
           </div>
         </div>
       </div>

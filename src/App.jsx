@@ -15,6 +15,8 @@ import Products from "./pages/Products";
 import Success from './components/Success';
 import Cancel from './components/Cancel';
 import Shipping from './pages/Shipping';
+import Thanks from './pages/Thanks';
+
 import ConfirmOrder from './pages/ConfirmOrder';
 
 
@@ -37,6 +39,7 @@ function App() {
         <Route path="/success" element={<Success/>} />
         <Route path="/cancel" element={<Cancel/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/thanks" element={<Thanks/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
