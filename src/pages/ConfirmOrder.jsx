@@ -18,9 +18,7 @@ const ConfirmOrder = () => {
     ...state.cart,
   }));
 
-  const CartitemStr = cartItems.map((item) => {
-    return item.name;
-  }).join(', ');
+
 
   const sub_total = cartItems.reduce(
     (acc, item) => acc + item.qty * item.price,
@@ -34,41 +32,10 @@ const ConfirmOrder = () => {
 
   let Address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.pincode}, ${shippingInfo.country}`;
 
-  //  stripe payment integration
-  const handlePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51P0M0uA9t10f3qsTEvhqQ0MbCZIAz9RoRgNWaIsOQeTSLiDrkwmtIFbIb347TrmRhAc4100aYdhDCdAIURCCKZLi00cxIciGJl"
-    );
-    try {
-      const body = { productsdata: cartItems };
-      console.log(body.productsdata);
-      const headers = {
-        "content-type": "application/json",
-      };
-      // Make POST request to your backend API
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/checkout",
-        {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(body.productsdata),
-        }
-      );
-      const session = await response.data;
-      console.log("Session created", session);
+  const CartitemStr = cartItems.map((item) => {
+    return item.name;
+  }).join(', '); 
 
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      console.log("results", result);
-
-      if (result.error) {
-        console.log(result.error);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
 
   //  handle cash on delivery 
   const cashonDelivery = async () => {
@@ -235,32 +202,33 @@ const ConfirmOrder = () => {
             </div>
 
             <div className="mt-8 flex justify-center">
-              <button
-                className="w-[400px] py-3 px-4 bg-blue-900 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={handlePayment}
-              >
-                Payment with card
-              </button>
-            </div>
-
-            <div className=" flex justify-center ">
-              <button
-                className="py-2 px-32 rounded-sm bg-red-600 my-4 text-center  text-white w-auto"
-                onClick={cashonDelivery}
-              >
-                cash on delivery
-              </button>
-            </div>
+          
 
 
-            <div className="mt-2">
+
               <button
-                className="w-full py-3 px-4 bg-violet-800 text-white font-semibold rounded-md hover:bg-violet-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className="w-[400px] py-3 px-4 bg-green-900 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 onClick={handlePaymentWithKhalti}
               >
                Khalti Wallet
               </button>
             </div>
+
+            <div className=" flex justify-center items-center flex-col mt-4 ">
+             <div>
+             <button
+                className="w-[400px] py-3 px-4 bg-red-900 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={cashonDelivery}
+              >
+                cash on delivery
+              </button>
+             </div>
+
+          
+            </div>
+
+
+           
           </div>
         </div>
       </div>

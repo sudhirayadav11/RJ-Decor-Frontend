@@ -9,6 +9,7 @@ import { addToCart } from "../redux/cart/cartSlice";
 export default function ProductHome() {
   const navigate=useNavigate()
   const location = useLocation();
+
   const { products, error } = useSelector((state) => state.products); // Only select the first 8 products
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.user);
@@ -35,6 +36,7 @@ export default function ProductHome() {
 
     }
   };
+ 
 
 
   const displayedProducts = products && products.slice(0, 8);

@@ -22,6 +22,8 @@ export default function Products() {
   const [price, setPrice] = useState();
   const [keywords, setKeywords] = useState("");
   const [selectedColor, setSelectedColor] = useState();
+  const [cartItems, setCartItems] = useState([]);
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -113,8 +115,12 @@ export default function Products() {
   // add to cart handler
   const addToCartHandler = (product) => {
     if(isLoggedIn){
-      dispatch(addToCart({ ...product, product_id: product._id, qty: quantity }));
-
+      if (cartItems.length < 3) {
+        setCartItems([...cartItems, product]);
+        dispatch(addToCart({ ...product, product_id: product._id, qty: quantity }));
+      } else {
+        toast.error("Only 3 Products are in Stock");
+      }
     }else{
       toast.error("Please log to add cart");
       navigate('/login')

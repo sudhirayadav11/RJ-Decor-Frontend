@@ -10,6 +10,8 @@ import Loader from "./../components/Loader";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [cartItems, setCartItems] = useState([]);
+
   const { id } = useParams();
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState(""); // Add selectedSize state
@@ -52,8 +54,11 @@ const ProductDetails = () => {
   const handleCart = (e) => {
     e.preventDefault();
     if(isLoggedIn){
-      dispatch(addToCart({ ...product, qty: quantity }));
-
+      if (cartItems.length < 3) {
+        setCartItems([...cartItems, product]);
+        dispatch(addToCart({ ...product, qty: quantity }));
+      } else {
+        toast.error("Only 3 Products are in Stock");    }
     }else{
       toast.error("Please log to add cart");
       navigate('/login')

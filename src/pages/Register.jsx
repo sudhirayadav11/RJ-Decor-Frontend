@@ -66,30 +66,10 @@ const Register = () => {
           />
         </div>
         <div className="md:w-1/3 max-w-sm">
-          <div className="text-center md:text-left">
-            <label className="mr-1">Sign in with</label>
-            <button
-              type="button"
-              className="mx-1 h-9 w-9  rounded-full bg-primary hover:bg-blue-700 text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-            >
-              <BiLogoFacebook
-                size={20}
-                className="flex justify-center items-center w-full"
-              />
-            </button>
-            <button
-              type="submit"
-              className="inlne-block mx-1 h-9 w-9 rounded-full bg-primary hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-            >
-              <AiOutlineGoogle
-                size={20}
-                className="flex justify-center items-center w-full"
-              />
-            </button>
-          </div>
+         
           <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-            <p className="mx-4 mb-0 text-center font-semibold text-slate-500">
-              Or
+            <p className="mx-4 mb-0 text-center font-semibold text-blue-500">
+             Register Account
             </p>
           </div>
           <form onSubmit={handleSubmit} method="POST">
