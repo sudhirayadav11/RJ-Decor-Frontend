@@ -17,6 +17,11 @@ const ConfirmOrder = () => {
   const { cartItems, shippingInfo } = useSelector((state) => ({
     ...state.cart,
   }));
+
+  const CartitemStr = cartItems.map((item) => {
+    return item.name;
+  }).join(', ');
+
   const sub_total = cartItems.reduce(
     (acc, item) => acc + item.qty * item.price,
     0
@@ -29,7 +34,7 @@ const ConfirmOrder = () => {
 
   let Address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.pincode}, ${shippingInfo.country}`;
 
-  // payment integration
+  //  stripe payment integration
   const handlePayment = async () => {
     const stripe = await loadStripe(
       "pk_test_51P0M0uA9t10f3qsTEvhqQ0MbCZIAz9RoRgNWaIsOQeTSLiDrkwmtIFbIb347TrmRhAc4100aYdhDCdAIURCCKZLi00cxIciGJl"
@@ -65,8 +70,8 @@ const ConfirmOrder = () => {
     }
   };
 
-  // cash on delivery payment method
-  const cashonPayment = async () => {
+  //  handle cash on delivery 
+  const cashonDelivery = async () => {
     try {
       const orderData = {
         orderItems: cartItems.map((item) => ({
@@ -94,6 +99,35 @@ const ConfirmOrder = () => {
     } catch (error) {
       console.error("Error:", error);
       toast.error("Error placing order");
+    }
+  };
+
+
+
+  const handlePaymentWithKhalti = async () => {
+    const payload = {
+      return_url: "http://localhost:5173/success",
+      website_url: "http://localhost:5173/",
+      amount:grand_total,
+      purchase_order_id: CartitemStr,
+      purchase_order_name: CartitemStr,
+      customer_info: {
+        name: "Sudhira Yadav",
+        email: "sudhira@home.com",
+        phone: "9800000001",
+        Address
+      },
+    };
+
+    const res = await axios.post(
+      "http://localhost:5000/initiate-payment",
+      payload
+    );
+
+    console.log(res.data.payment_url);
+
+    if (res.data) {
+      window.location.href = res.data.payment_url;
     }
   };
 
@@ -212,9 +246,19 @@ const ConfirmOrder = () => {
             <div className=" flex justify-center ">
               <button
                 className="py-2 px-32 rounded-sm bg-red-600 my-4 text-center  text-white w-auto"
-                onClick={cashonPayment}
+                onClick={cashonDelivery}
               >
                 cash on delivery
+              </button>
+            </div>
+
+
+            <div className="mt-2">
+              <button
+                className="w-full py-3 px-4 bg-violet-800 text-white font-semibold rounded-md hover:bg-violet-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                onClick={handlePaymentWithKhalti}
+              >
+               Khalti Wallet
               </button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Success = () => {
+const PaymentSuccess = () => {
   return (
     <>
         <div className="flex justify-center items-center h-[500px]">
@@ -10,4 +10,4 @@ const Success = () => {
   )
 }
 
-export default Success
+export default PaymentSuccess

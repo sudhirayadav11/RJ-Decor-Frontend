@@ -94,8 +94,8 @@ const ProductDetails = () => {
         </>
       ) : (
         <>
-          <div className="container mx-auto gap-6 py-10 overflow-x-hidden">
-            <h1 className="text-3xl  font-bold pb-4 text-sec">
+          <div className="container mx-auto gap-6 py-4 overflow-x-hidden">
+            <h1 className="text-3xl text-start  font-bold pb-4 text-sec">
               Product Details
             </h1>
             <div className="flex flex-col lg:flex-row gap-6">
@@ -114,11 +114,11 @@ const ProductDetails = () => {
 
               {/* content  section start */}
               <div className="w-full lg:w-1/2 px-4">
-                <h2 className="text-3xl font-medium uppercase mb-2">
+                <h2 className="text-3xl font-semibold uppercase mb-2">
                   {product.name}
                 </h2>
-                <div className="flex items-center mb-4"></div>
-                <div className="space-y-2">
+                <div className="flex items-center mb-2"></div>
+                <div className="">
                   <p className="text-gray-800 font-semibold space-x-2">
                     <span>Availability: </span>
                     <span className="text-green-600">In Stock</span>
@@ -131,48 +131,27 @@ const ProductDetails = () => {
                     <span className="text-gray-600">{product.category}</span>
                   </p>
                 </div>
-                <div className="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                  <p className="text-xl text-primary font-semibold">
-                    Price: Rs. {product.price}{" "}
+                <div className="flex items-baseline mb-1 space-x-2 font-roboto ">
+                  <p className="text-md text-gray-700">
+                    <span className="text-gray-800 font-semibold">Price:</span> Rs. {product.price}{" "}
                   </p>
                 </div>
                 <p className="my-1 text-gray-700">
-                  <strong>Brand: </strong>
+                  <span className="text-gray-800 font-semibold">Brand: </span>
                   {product.brand}
                 </p>
                 <p className="my-1 text-gray-700">
-                  <strong>Material : </strong>
+                  <span className="text-gray-800 font-semibold">Material : </span>
                   {product.fabric}
                 </p>
 
-                {/* sizes displaying start */}
-                {/* <div className="">
-                  {product.sizes && product.sizes.length > 0 && (
-                    <div className="flex justify-start items-center">
-                      <strong>Sizes: </strong>
-                      <select
-                        className="mx-2 px-4 py-1 border border-gray-300 rounded-md"
-                        style={{
-                          appearance: "none",
-                          background: "none",
-                          backgroundImage: "none",
-                        }}
-                      >
-                        {product.sizes.map((size) => (
-                          <option key={size} value={size}>
-                            {size}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                </div> */}
+               
                 <div className="">
                   {product.sizes && product.sizes.length > 0 && (
                     <div className="flex justify-start items-center">
-                      <strong>Sizes: </strong>
+                      <span className="text-gray-800 font-semibold">Sizes: </span>
                       <select
-                        className="mx-2 px-4 py-1 border border-gray-300 rounded-md"
+                        className="mx-2 px-4  border border-gray-300 rounded-md"
                         style={{
                           appearance: "none",
                           background: "none",
@@ -193,14 +172,17 @@ const ProductDetails = () => {
 
                 {/* sizes displaying end */}
 
-                <div className="space-y-2">
-                  <p className="text-gray-800 font-semibold pt-2">
-                    <strong>Available Color</strong>{" "}
-                    <span className="uppercase">: {product.colors}</span>
+                <div className="space-y-2 ">
+                  <div className="flex  flex-row justify-start items-center">
+                  <p className="text-gray-800 font-semibold ">
+                    <span className="text-gray-800 font-semibold">Available Color </span>{" "}
+                    <span className=" text-gray-500">: {product.colors}</span>
                   </p>
+                  </div>
+                  
 
                   <div className="flex items-center">
-                    <strong>Select Color : </strong> &nbsp;
+                    <span className="text-gray-800 font-semibold">Select Color : </span> &nbsp;
                     {staticColors.map((color) => (
                       <button
                         key={color}
@@ -222,7 +204,7 @@ const ProductDetails = () => {
 
                 <div className="mt-4 flex items-center">
                   <h3 className="text-sm text-gray-800 uppercase mb-1 me-4">
-                    <strong> Quantity: </strong>
+                    <span className="text-gray-800 font-semibold"> Quantity: </span>
                   </h3>
 
                   <div className="flex border border-blue-800 text-gray-800 divide-x divide-blue-900 w-max">

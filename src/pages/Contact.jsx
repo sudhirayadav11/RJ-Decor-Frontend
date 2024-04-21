@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { toast } from 'react-toastify'
 
 const Contact = () => {
+
+  const formRef = useRef(null)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    formRef.current.reset()
+    toast.success("Your message have been recorded")
+  }
+
   return (
     <>
  
@@ -74,18 +84,18 @@ const Contact = () => {
       </div>
       <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
         <div className="relative p-8 bg-white rounded-lg shadow-lg dark:bg-dark-2 sm:p-12">
-          <form>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <div className="mb-6">
-              <input type="text" placeholder="Your Name" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none" />
+              <input type="text" placeholder="Your Name" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none" required/>
             </div>
             <div className="mb-6">
-              <input type="email" placeholder="Your Email" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none" />
+              <input type="email" placeholder="Your Email" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none" required/>
             </div>
             <div className="mb-6">
-              <input type="text" placeholder="Your Phone" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none" />
+              <input type="text" placeholder="Your Phone" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none" required/>
             </div>
             <div className="mb-6">
-              <textarea rows={6} placeholder="Your Message" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none" defaultValue={""} />
+              <textarea rows={6} placeholder="Your Message" className="border-stroke dark:border-dark-3 dark:text-dark-6 dark:bg-dark text-body-color focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none" defaultValue={""} required/>
             </div>
             <div>
               <button type="submit" className="w-full p-3 text-white transition border rounded border-primary bg-primary hover:bg-opacity-90">

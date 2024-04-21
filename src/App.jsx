@@ -12,7 +12,7 @@ import Contact from "./pages/Contact";
 import About from './pages/About';
 import Wishlist from "./pages/Wishlist";
 import Products from "./pages/Products";
-import Success from './components/Success';
+import PaymentSuccess from './components/PaymentSuccess';
 import Cancel from './components/Cancel';
 import Shipping from './pages/Shipping';
 import Thanks from './pages/Thanks';
@@ -36,7 +36,7 @@ function App() {
         <Route path="/cart" element={<Cart/>} />
         <Route path="/shipping" element={<Shipping/>} />
         <Route path="/order/confirm" element={<ConfirmOrder/>} />
-        <Route path="/success" element={<Success/>} />
+        <Route path="/success" element={<PaymentSuccess/>} />
         <Route path="/cancel" element={<Cancel/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/thanks" element={<Thanks/>} />
