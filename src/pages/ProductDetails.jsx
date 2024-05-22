@@ -78,9 +78,7 @@ const ProductDetails = () => {
     setSelectedColor(color);
   };
 
-  // color logic  end
-
-  // show sizes when product Bedroom  category is selected
+ 
   // const isBedroom = product && product.category === "Bedroom";
   useEffect(() => {
     if (product.colors && product.colors.length > 0) {
@@ -229,7 +227,7 @@ const ProductDetails = () => {
                     />
                     <div
                       className="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none"
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() => setQuantity(quantity < 3 ? quantity + 1 : quantity)}
                     >
                       +
                     </div>

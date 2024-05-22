@@ -34,8 +34,16 @@ const Cart = () => {
     return x;
   }
 
+  // const increaseQty = (id) => {
+  //   dispatch(increaseQuantity(id));
+  // };
   const increaseQty = (id) => {
-    dispatch(increaseQuantity(id));
+    const item = cartItems.find((item) => item._id === id);
+    if (item.qty < 3) {
+      dispatch(increaseQuantity(id));
+    } else {
+      toast.error("You can only add up to 3 of this item.");
+    }
   };
 
   const decreaseQty = (id) => {
@@ -193,18 +201,23 @@ const Cart = () => {
                 Rs. {totalPrice().toLocaleString()}.00
               </span>
             </li>
-            <li className="flex flex-wrap gap-4 text-md py-4">
-              Shipping <span className="ml-auto font-bold">Rs. 200</span>
-            </li>
-            <li className="flex flex-wrap gap-4 text-md py-4">
-              Tax <span className="ml-auto font-bold">Rs. 100</span>
-            </li>
-            <li className="flex flex-wrap gap-4 text-md py-4 font-bold">
-              Total{" "}
-              <span className="ml-auto">
-                Rs. {(totalPrice() + 100 + 200).toLocaleString()}.00
-              </span>
-            </li>
+           
+            {cartItems.length > 0 && (
+              <>
+                <li className="flex flex-wrap gap-4 text-md py-4">
+                  Shipping <span className="ml-auto font-bold">Rs. 200</span>
+                </li>
+                <li className="flex flex-wrap gap-4 text-md py-4">
+                  Tax <span className="ml-auto font-bold">Rs. 100</span>
+                </li>
+                <li className="flex flex-wrap gap-4 text-md py-4 font-bold">
+                  Total{" "}
+                  <span className="ml-auto">
+                    Rs. {(totalPrice() + 100 + 200).toLocaleString()}.00
+                  </span>
+                </li>
+              </>
+            )}
           </ul>
 
           <button

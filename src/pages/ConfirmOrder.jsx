@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { createNewOrder } from "../redux/order/orderSlice";
@@ -71,11 +70,38 @@ const ConfirmOrder = () => {
 
 
 
+  // const handlePaymentWithKhalti = async () => {
+  //   const payload = {
+  //     return_url: "http://localhost:5173/success",
+  //     website_url: "http://localhost:5173/",
+  //     amount:grand_total,
+  //     purchase_order_id: CartitemStr,
+  //     purchase_order_name: CartitemStr,
+  //     customer_info: {
+  //       name: "Sudhira Yadav",
+  //       email: "sudhira@home.com",
+  //       phone: "9800000001",
+  //       Address
+  //     },
+  //   };
+
+  //   const res = await axios.post(
+  //     "http://localhost:5000/initiate-payment",
+  //     payload
+  //   );
+
+  //   console.log(res.data.payment_url);
+
+  //   if (res.data) {
+  //     window.location.href = res.data.payment_url;
+  //   }
+  // };
+
   const handlePaymentWithKhalti = async () => {
     const payload = {
       return_url: "http://localhost:5173/success",
       website_url: "http://localhost:5173/",
-      amount:grand_total,
+      amount: grand_total,
       purchase_order_id: CartitemStr,
       purchase_order_name: CartitemStr,
       customer_info: {
@@ -85,19 +111,41 @@ const ConfirmOrder = () => {
         Address
       },
     };
-
-    const res = await axios.post(
-      "http://localhost:5000/initiate-payment",
-      payload
-    );
-
-    console.log(res.data.payment_url);
-
-    if (res.data) {
-      window.location.href = res.data.payment_url;
+  
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/initiate-payment",
+        payload
+      );
+  
+      console.log("Payment URL:", res.data.payment_url);
+  
+      if (res.data && res.data.payment_url) {
+        window.location.href = res.data.payment_url;
+      }
+    } catch (error) {
+      console.error("Error initiating payment:", error);
+      toast.error("Error initiating payment");
     }
   };
-
+  
+  // For logging out issues, let's add a useEffect hook to monitor user state changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const currentUser = JSON.parse(localStorage.getItem("user"));
+      if (!currentUser) {
+        console.warn("User logged out unexpectedly!");
+        navigate("/login"); // Redirect to login if user logs out
+      }
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+  
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [navigate]);
+  
   return (
     <>
       <div className="container mx-auto">
@@ -202,9 +250,6 @@ const ConfirmOrder = () => {
             </div>
 
             <div className="mt-8 flex justify-center">
-          
-
-
 
               <button
                 className="w-[400px] py-3 px-4 bg-green-900 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
